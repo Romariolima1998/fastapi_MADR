@@ -1,9 +1,13 @@
 from pydantic import BaseModel, EmailStr, ConfigDict
 
 
+# ############################ schema token##################################
+
 class Token(BaseModel):
     access_token: str
     token_type: str
+
+# ############################# schema usuario###############################
 
 
 class UserSchema(BaseModel):
@@ -25,3 +29,17 @@ class UserList(BaseModel):
 
 class Message(BaseModel):
     message: str
+
+# ##################### schema romancista####################################
+
+
+class RomancistaSchema(BaseModel):
+    nome: str
+
+
+class RomancistaPublic(RomancistaSchema):
+    id: int
+
+
+class RomancistaPublicList(BaseModel):
+    romancistas: list[RomancistaPublic]

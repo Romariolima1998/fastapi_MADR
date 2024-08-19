@@ -10,7 +10,7 @@ from sqlalchemy.pool import StaticPool
 
 from madr.database import get_session
 from madr.app import app
-from madr.models import User, table_registry
+from madr.models import User, Romancista, table_registry
 from madr.security import get_password_hash
 # from fast_zero.settings import Settings
 
@@ -95,3 +95,14 @@ def token(client, user):
         data={'username': user.username, 'password': user.clean_password},
     )
     return response.json()['access_token']
+
+
+@pytest.fixture
+def romancista(session: Session):
+    _romancista = Romancista(nome='test')
+
+    session.add(_romancista)
+    session.commit()
+    session.refresh(_romancista)
+
+    return _romancista

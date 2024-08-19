@@ -31,13 +31,13 @@ def create(user: UserSchema, session: GetSession):
         if db_user.username == user.username:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
-                detail='username alredy eists'
+                detail='username alredy exists'
             )
 
         elif db_user.email == user.email:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
-                detail='email alredy eists'
+                detail='email alredy exists'
             )
 
     db_user = User(username=user.username, email=user.email,
@@ -66,7 +66,7 @@ async def user_detail(user_id: int, session: Session = Depends(get_session)):
     )
     if not db_user:
         raise HTTPException(
-            status_code=404, detail='User not foud'
+            status_code=status.HTTP_404_NOT_FOUND, detail='User not foud'
         )
 
     return db_user
