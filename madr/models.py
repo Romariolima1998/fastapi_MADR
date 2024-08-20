@@ -42,7 +42,7 @@ class Livro:
     __tablename__ = 'livros'
 
     id: Mapped[int] = mapped_column(init=False, primary_key=True)
-    ano: Mapped[datetime]
+    ano: Mapped[int]
     titulo: Mapped[str] = mapped_column(unique=True)
     id_romancista: Mapped[int] = mapped_column(ForeignKey('romancistas.id'))
     autoria: Mapped[Romancista] = relationship(

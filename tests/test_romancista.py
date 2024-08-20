@@ -141,7 +141,7 @@ def test_delete_romancista(client, token, romancista):
     assert romancista_ == {'message': 'Romancista deletada no MADR'}
 
 
-def test_delete_romancista(client, token):
+def test_exception_delete_romancista_not_exists(client, token):
 
     response = client.delete(
         '/romancista/5',

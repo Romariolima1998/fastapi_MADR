@@ -1,3 +1,4 @@
+
 from pydantic import BaseModel, EmailStr, ConfigDict
 
 
@@ -43,3 +44,25 @@ class RomancistaPublic(RomancistaSchema):
 
 class RomancistaPublicList(BaseModel):
     romancistas: list[RomancistaPublic]
+
+# ###########################SCHEMA LIVRO#####################################
+
+
+class LivroSchema(BaseModel):
+    ano: int
+    titulo: str
+    id_romancista: int
+
+
+class LivroPublic(LivroSchema):
+    id: int
+
+
+class ListLivroPublic(BaseModel):
+    livros: list[LivroPublic]
+
+
+class LivroUpdate(BaseModel):
+    ano: int | None = None
+    titulo: str | None = None
+    id_romancista: int | None = None
