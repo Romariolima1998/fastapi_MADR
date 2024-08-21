@@ -10,7 +10,7 @@ from sqlalchemy.pool import StaticPool
 
 from madr.database import get_session
 from madr.app import app
-from madr.models import User, Romancista, table_registry
+from madr.models import User, Romancista, Livro, table_registry
 from madr.security import get_password_hash
 # from fast_zero.settings import Settings
 
@@ -106,3 +106,15 @@ def romancista(session: Session):
     session.refresh(_romancista)
 
     return _romancista
+
+
+@pytest.fixture
+def livro(session, romancista):
+
+    _livro = Livro(ano=0000, titulo='test', id_romancista=romancista.id)
+
+    session.add(_livro)
+    session.commit()
+    session.refresh(_livro)
+
+    return _livro
