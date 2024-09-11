@@ -10,6 +10,7 @@ from madr.security import get_current_user
 from madr.schemas import (
     Message, RomancistaSchema, RomancistaPublic, RomancistaPublicList
 )
+from madr.utils import string_handling
 
 
 router = APIRouter(
@@ -35,7 +36,7 @@ async def create_romancista(
             detail='romancista já consta no MADR'
         )
 
-    romancista = Romancista(nome=dados.nome)
+    romancista = Romancista(nome=string_handling(dados.nome))
 
     session.add(romancista)
     session.commit()
@@ -89,7 +90,7 @@ async def update_romancista(
         )
 
     if dados.nome:
-        romancista.nome = dados.nome
+        romancista.nome = string_handling(dados.nome)
 
     session.commit()
     session.refresh(romancista)

@@ -10,6 +10,7 @@ from madr.security import get_current_user
 from madr.schemas import (
     Message, LivroSchema, LivroPublic, ListLivroPublic, LivroUpdate
 )
+from madr.utils import string_handling
 
 
 router = APIRouter(
@@ -45,7 +46,7 @@ async def create_livro(
             detail='livro já consta no MADR'
         )
 
-    livro = Livro(ano=dados.ano, titulo=dados.titulo,
+    livro = Livro(ano=dados.ano, titulo=string_handling(dados.titulo),
                   id_romancista=dados.id_romancista)
 
     session.add(livro)
@@ -95,6 +96,8 @@ async def update_livro(
             status_code=status.HTTP_404_NOT_FOUND,
             detail='Livro não consta no MADR'
         )
+    if dados.titulo:
+        dados.titulo = string_handling(dados.titulo)
 
     for key, value in dados.model_dump(exclude_unset=True).items():
         setattr(livro, key, value)
